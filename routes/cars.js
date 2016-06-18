@@ -47,7 +47,8 @@ router.post('/new', function(req, res, next) {
 
 /* PUT for car update. */
 router.put('/', function (req, res) {
-    return CarModel.findOne(req.query.number, function (err, car) {
+
+    return CarModel.findOne({ 'number': req.body.number }, function (err, car) {
         if(!car) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });

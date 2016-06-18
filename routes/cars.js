@@ -49,6 +49,7 @@ router.post('/new', function(req, res, next) {
 router.get('/', function(req, res) {
     return CarModel.find(function (err, cars) {
         if (!err) {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             return res.send(cars);
         } else {
             res.statusCode = 500;

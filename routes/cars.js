@@ -6,13 +6,12 @@ var router = express.Router();
 
 /* GET cars listing. */
 router.get('/list', function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send('Respond with a resource');
 });
 
 /* POST new car. */
 router.post('/new', function(req, res, next) {
-
-    //res.send('Respond with a resource');
 
     var car = new CarModel({
         model: req.body.model,
@@ -21,6 +20,7 @@ router.post('/new', function(req, res, next) {
         operator: req.body.operator,
         insurance: req.body.insurance,
         price: req.body.price,
+        price_category: req.body.price_category,
         fuel_level: req.body.fuel_level,
         latitude: req.body.latitude,
         longitude: req.body.longitude
@@ -43,6 +43,33 @@ router.post('/new', function(req, res, next) {
         }
     });
 
+});
+
+/* PUT for car update. */
+router.put('/', function (req, res) {
+    return CarModel.findOne(req.query.number, function (err, car) {
+        if(!car) {
+            res.statusCode = 404;
+            return res.send({ error: 'Not found' });
+        }
+
+        car.price_category = req.body.price_category;
+        return car.save(function (err) {
+            if (!err) {
+                log.info("car updated");
+                return res.send({ status: 'OK', car:car });
+            } else {
+                if(err.name == 'ValidationError') {
+                    res.statusCode = 400;
+                    res.send({ error: 'Validation error' });
+                } else {
+                    res.statusCode = 500;
+                    res.send({ error: 'Server error' });
+                }
+                log.error('Internal error(%d): %s',res.statusCode,err.message);
+            }
+        });
+    });
 });
 
 /* GET user by license number. */
@@ -68,7 +95,7 @@ router.delete('/delete', function (req, res){
         }
         return car.remove(function (err) {
             if (!err) {
-                log.info("article removed");
+                log.info("car removed");
                 return res.send({ status: 'OK' });
             } else {
                 res.statusCode = 500;

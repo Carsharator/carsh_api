@@ -5,6 +5,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/list', function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.send('Respond with a resource');
 });
 
@@ -17,7 +18,9 @@ router.post('/new', function(req, res, next) {
     patronymic_name: req.body.patronymic_name,
     login: req.body.login,
     license_number: req.body.license_number,
-    license_valid_until: req.body.license_valid_until
+    license_valid_until: req.body.license_valid_until,
+    email: req.body.email,
+    phone: req.body.phone
   });
   
   user.save(function (err) {
@@ -28,10 +31,10 @@ router.post('/new', function(req, res, next) {
       console.log(err);
       if(err.name == 'ValidationError') {
         res.statusCode = 400;
-        res.send({ error: 'Validation error' });
+        res.send({ error: 'Validation error', detail:err });
       } else {
         res.statusCode = 500;
-        res.send({ error: 'Server error' });
+        res.send({ error: 'Server error', detail:err });
       }
       log.error('Internal error(%d): %s',res.statusCode,err.message);
     }

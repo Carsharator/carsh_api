@@ -25,7 +25,7 @@ var User = new Schema({
     email: { type: String, required: false },
     phone: { type: Number, required: false },
     distance: { type: Number, default: 0 },
-    spent: { type: Number , default: 75 },
+    spent: { type: Number , default: 0 },
     modified: { type: Date, default: Date.now }
 });
 
@@ -36,10 +36,11 @@ var Car = new Schema({
     operator: { type: String, required: true },
     insurance: { type: String, required: true },
     price: { type: Number, required: false },
+    price_category: { type: Number, required: false },
     fuel_level: { type: Number, default: 75 },
     modified: { type: Date, default: Date.now },
-    latitude: { type: Number, default: true },
-    longitude: { type: Number, default: true }
+    latitude: { type: Number, required: true },
+    longitude: { type: Number, required: true }
 });
 
 var UserModel = mongoose.model('User', User);

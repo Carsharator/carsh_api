@@ -54,6 +54,8 @@ router.put('/', function (req, res) {
         }
 
         car.price_category = req.body.price_category;
+        car.price = req.body.price;
+        
         return car.save(function (err) {
             if (!err) {
                 log.info("car updated");

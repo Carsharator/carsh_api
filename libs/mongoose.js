@@ -19,8 +19,13 @@ var User = new Schema({
     last_name: { type: String, required: true },
     patronymic_name: { type: String, required: true },
     login: { type: String, required: false },
+    password: { type: String, required: false },
     license_number: { type: String, required: true },
     license_valid_until: { type: Date, required: false },
+    email: { type: String, required: false },
+    phone: { type: Number, required: false },
+    distance: { type: Number, default: 0 },
+    spent: { type: Number , default: 75 },
     modified: { type: Date, default: Date.now }
 });
 
@@ -29,8 +34,8 @@ var Car = new Schema({
     number: { type: String, required: true },
     color: { type: String, required: true },
     operator: { type: String, required: true },
-    insurance: { type: String, required: false },
-    price: { type: Date, required: false },
+    insurance: { type: String, required: true },
+    price: { type: Number, required: false },
     fuel_level: { type: Number, default: 75 },
     modified: { type: Date, default: Date.now },
     latitude: { type: Number, default: true },

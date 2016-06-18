@@ -58,4 +58,25 @@ router.get('/', function(req, res) {
     });
 });
 
+/* DELETE car by number. */
+router.delete('/delete', function (req, res){
+    return CarModel.findOne(req.query.number, function (err, car) {
+        if(!car) {
+            res.statusCode = 404;
+            return res.send({ error: 'Not found' });
+        }
+        return car.remove(function (err) {
+            if (!err) {
+                log.info("article removed");
+                return res.send({ status: 'OK' });
+            } else {
+                res.statusCode = 500;
+                log.error('Internal error(%d): %s',res.statusCode,err.message);
+                return res.send({ error: 'Server error' });
+            }
+        });
+    });
+});
+
+
 module.exports = router;

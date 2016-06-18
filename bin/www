@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('CarshApi:server');
 var http = require('http');
+var https = require('https');
+var fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
@@ -32,6 +34,13 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
+
+
+https.createServer({
+  key: fs.readFileSync('cert/key.pem'),
+  cert: fs.readFileSync('cert/cert.pem'),
+  passphrase: 'Fallout3'
+}, app).listen(3001);
 
 function normalizePort(val) {
   var port = parseInt(val, 10);

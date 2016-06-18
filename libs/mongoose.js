@@ -33,13 +33,9 @@ var Car = new Schema({
     price: { type: Date, required: false },
     fuel_level: { type: Number, default: 75 },
     modified: { type: Date, default: Date.now },
-    available: { type: Boolean, default: true }
+    latitude: { type: Number, default: true },
+    longitude: { type: Number, default: true }
 });
-
-// validation
-//User.path('title').validate(function (v) {
-//    return v.length > 5 && v.length < 70;
-//});
 
 var UserModel = mongoose.model('User', User);
 var CarModel = mongoose.model('Car', Car);

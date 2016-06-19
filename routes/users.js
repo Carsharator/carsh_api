@@ -26,7 +26,7 @@ router.post('/new', function(req, res, next) {
   
   user.save(function (err) {
     if (!err) {
-      log.info("article created");
+      log.info("user created");
       return res.send({ status: 'OK', user:user });
     } else {
       console.log(err);
@@ -46,6 +46,7 @@ router.post('/new', function(req, res, next) {
 
 /* GET user by license number. */
 router.get('/', function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   return UserModel.findOne({ 'license_number': req.query.license_number }, function (err, user) {
     if(!user) {
       res.statusCode = 404;

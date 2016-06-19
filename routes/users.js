@@ -10,7 +10,7 @@ router.get('/list', function(req, res, next) {
 });
 
 /* GET all users. */
-router.get('/', function(req, res) {
+router.get('/all', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   return UserModel.find(function (err, user) {
     if (!err) {

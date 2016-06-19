@@ -26,6 +26,7 @@ router.post('/new', function(req, res, next) {
   user.save(function (err) {
     if (!err) {
       log.info("article created");
+      res.setHeader('Access-Control-Allow-Origin', '*');
       return res.send({ status: 'OK', user:user });
     } else {
       console.log(err);

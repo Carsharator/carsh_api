@@ -80,8 +80,26 @@ router.put('/', function (req, res) {
 router.get('/', function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     return CarModel.find(function (err, cars) {
+        var mod_cars = [];
         if (!err) {
-            return res.send(cars);
+            cars.forEach(function(car, i, arr) {
+                var new_car = {
+                    model: car.model,
+                    number: car.number,
+                    color: car.color,
+                    operator: car.operator,
+                    insurance: car.insurance,
+                    price: car.price,
+                    price_category: car.price_category,
+                    fuel_level: car.fuel_level,
+                    latitude: car.latitude,
+                    longitude: car.longitude,
+                    destination_latitude: car.latitude - 0.014718,
+                    destination_longitude: car.longitude - 0.01265
+                };
+                mod_cars[i] = new_car;
+            });
+            return res.send(mod_cars);
         } else {
             res.statusCode = 500;
             log.error('Internal error(%d): %s',res.statusCode,err.message);

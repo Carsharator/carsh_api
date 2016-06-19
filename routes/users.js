@@ -32,6 +32,7 @@ router.post('/new', function(req, res, next) {
       console.log(err);
       if(err.name == 'ValidationError') {
         res.statusCode = 400;
+        console.log(req);
         res.send({ error: 'Validation error', detail:err });
       } else {
         res.statusCode = 500;

@@ -12,6 +12,7 @@ router.get('/list', function(req, res, next) {
 /* POST new user. */
 router.post('/new', function(req, res, next) {
 
+  res.setHeader('Access-Control-Allow-Origin', '*');
   var user = new UserModel({
     first_name: req.body.first_name,
     last_name: req.body.last_name,
@@ -26,7 +27,6 @@ router.post('/new', function(req, res, next) {
   user.save(function (err) {
     if (!err) {
       log.info("article created");
-      res.setHeader('Access-Control-Allow-Origin', '*');
       return res.send({ status: 'OK', user:user });
     } else {
       console.log(err);

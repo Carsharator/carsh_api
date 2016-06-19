@@ -87,4 +87,13 @@ router.get('/', function(req, res) {
   });
 });
 
+/* GET drop all users. */
+router.get('/deleteall', function (req, res){
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  return UserModel.remove({}, function(err) {
+    console.log('cars removed');
+    return res.send({ status: 'OK' });
+  });
+});
+
 module.exports = router;

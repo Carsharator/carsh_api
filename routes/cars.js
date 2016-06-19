@@ -110,7 +110,7 @@ router.delete('/delete', function (req, res){
     });
 });
 
-/* GET car by number. */
+/* GET drop all cars. */
 router.get('/deleteall', function (req, res){
     res.setHeader('Access-Control-Allow-Origin', '*');
     return CarModel.remove({}, function(err) {

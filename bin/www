@@ -36,11 +36,11 @@ server.on('listening', onListening);
  */
 
 
-/*https.createServer({
+https.createServer({
   key: fs.readFileSync('../key.pem'),
   cert: fs.readFileSync('../cert.pem'),
   passphrase: 'Fallout3'
-}, app).listen(3001);*/
+}, app).listen(3001);
 
 function normalizePort(val) {
   var port = parseInt(val, 10);

@@ -94,8 +94,8 @@ router.get('/', function(req, res) {
                     fuel_level: car.fuel_level,
                     latitude: car.latitude,
                     longitude: car.longitude,
-                    destination_latitude: car.latitude - 0.014718,
-                    destination_longitude: car.longitude - 0.01265
+                    destination_latitude: parseFloat((car.latitude - 0.014718).toFixed(6)),
+                    destination_longitude: parseFloat((car.longitude - 0.01265).toFixed(6))
                 };
                 mod_cars[i] = new_car;
             });

@@ -13,6 +13,7 @@ router.get('/list', function(req, res, next) {
 /* POST new car. */
 router.post('/new', function(req, res, next) {
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
     var car = new CarModel({
         model: req.body.model,
         number: req.body.number,
@@ -75,11 +76,11 @@ router.put('/', function (req, res) {
     });
 });
 
-/* GET user by license number. */
+/* GET all cars. */
 router.get('/', function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     return CarModel.find(function (err, cars) {
         if (!err) {
-            res.setHeader('Access-Control-Allow-Origin', '*');
             return res.send(cars);
         } else {
             res.statusCode = 500;
@@ -106,6 +107,15 @@ router.delete('/delete', function (req, res){
                 return res.send({ error: 'Server error' });
             }
         });
+    });
+});
+
+/* GET car by number. */
+router.get('/deleteall', function (req, res){
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    return CarModel.remove({}, function(err) {
+        console.log('cars removed');
+        return res.send({ status: 'OK' });
     });
 });
 
